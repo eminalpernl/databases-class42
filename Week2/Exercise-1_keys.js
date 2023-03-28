@@ -5,7 +5,6 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "hyfuser",
   password: "hyfpassword",
-  //   database: "week2DB",
   multipleStatements: true,
 });
 
