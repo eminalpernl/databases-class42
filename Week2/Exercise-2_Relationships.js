@@ -19,7 +19,7 @@ db.connect((err) => {
 
 //Create Table research_Papers
 db.query(
-  `CREATE TABLE research_Papers (
+  `CREATE TABLE IF NOT EXISTS research_Papers (
     paper_id INT AUTO_INCREMENT,
     paper_title VARCHAR(300),
     conference VARCHAR(300),
@@ -35,7 +35,7 @@ db.query(
 
 //Create Table researches
 db.query(
-  `CREATE TABLE researches (
+  `CREATE TABLE IF NOT EXISTS researches (
     research_id INT AUTO_INCREMENT,
     research_paper_id INT,
     research_author_id INT,
@@ -65,7 +65,7 @@ const authors = [
 ];
 
 db.query(
-  "INSERT INTO authors (author_name, university, date_of_birth, h_index, gender, mentor) VALUES ?",
+  "SET FOREIGN_KEY_CHECKS=0; TRUNCATE TABLE authors; INSERT INTO authors (author_name, university, date_of_birth, h_index, gender, mentor) VALUES ?",
   [authors],
   (error, result) => {
     if (error) throw error;
@@ -90,7 +90,7 @@ const researchPapers = [
 ];
 
 db.query(
-  "INSERT INTO research_Papers (paper_title, conference, publish_date) VALUES ?",
+  "SET FOREIGN_KEY_CHECKS=0; TRUNCATE TABLE research_Papers; INSERT INTO research_Papers (paper_title, conference, publish_date) VALUES ?",
   [researchPapers],
   (error, result) => {
     if (error) throw error;
@@ -115,7 +115,7 @@ const AuthorsOfPapers = [
 ];
 
 db.query(
-  "INSERT INTO researches (research_paper_id, research_author_id) VALUES ?",
+  "SET FOREIGN_KEY_CHECKS=0; TRUNCATE TABLE researches; INSERT INTO researches (research_paper_id, research_author_id) VALUES ?",
   [AuthorsOfPapers],
   (error, result) => {
     if (error) throw error;
